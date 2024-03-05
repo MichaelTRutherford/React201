@@ -15,7 +15,7 @@ const [searchText, setSearchText] = useState('');
 useEffect(() => {
   if(searchText){
     const url = `https://api.themoviedb.org/3/search/movie?query=${searchText}&include_adult=false&language=en-US&page=1`
-    const api_key = 'api key'
+    const api_key = 'api-key'
     const options = {
       method: 'GET',
       headers: {
@@ -26,10 +26,7 @@ useEffect(() => {
     fetch(url, options)
     .then(response => response.json())
     .then(data => {
-
       setSearchResults(data.results)
-      
-      console.log(data.results)
     })
   }  
 }, [searchText] )

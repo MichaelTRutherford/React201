@@ -6,6 +6,10 @@ const Navbar = ( {searchText, setSearchText } ) => {
     history('/search')
     setSearchText(e.target.value)
   }
+  const onButtonClick = (e) => {
+    e.preventDefault();
+    history('/search');
+  }
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
@@ -45,7 +49,7 @@ const Navbar = ( {searchText, setSearchText } ) => {
               value={searchText}
               onChange={updateSearchText}
             />
-            <button className="btn btn-outline-success" type="submit">
+            <button className="btn btn-outline-success" onClick={onButtonClick}>
               Search
             </button>
           </form>

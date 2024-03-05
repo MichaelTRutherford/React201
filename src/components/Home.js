@@ -1,26 +1,50 @@
 import Hero from "./Hero";
+import MovieCard from "./MovieCard";
+import { useEffect, useState } from "react";
 
 const Home = () => {
-  return (
-    <div>
-      <Hero text="Welcome to React 201" />
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-8 offset-lg-2 my-5">
-            <p className="lead">
-              Labore velit officia ad consequat magna mollit sint id excepteur
-              sit est. Officia ad in velit reprehenderit aliquip consectetur
-              eiusmod et. Labore amet mollit eiusmod labore velit est nisi
-              labore. Tempor magna aliquip velit id ad aliqua officia ad amet
-              reprehenderit. Esse veniam pariatur ea ad cillum aute nulla enim
-              ut est aliquip aliqua cupidatat. Aliquip ex voluptate eu anim
-              magna in velit.
-            </p>
-          </div>
+  const [nowPlaying, setNowPlaying] = useState([])
+
+  useEffect(() => {
+    const url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`;
+    const api_key = 'api-key'
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer ' + api_key,
+        }
+    }
+    fetch(url, options)
+    .then(response => response.json())
+    .then(data => {
+      setNowPlaying(data.results)
+      console.log(data)
+    })
+  })
+
+  function renderNowPlaying() {
+    if(nowPlaying){
+      const resultsHtml = nowPlaying.map((obj, i) => {
+        return <MovieCard movie={obj} key={i} />
+      })
+
+      return (
+        <div>
+          <Hero text="Now Playing" />
+          {resultsHtml &&
+            <div className="container">
+              <div className="row">
+                {resultsHtml}
+              </div>
+            </div>
+          }
         </div>
-      </div>
-    </div>
-  );
+      )
+    }
+  };
+
+  return renderNowPlaying()
 };
 
 export default Home;

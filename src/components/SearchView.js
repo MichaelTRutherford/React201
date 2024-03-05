@@ -1,36 +1,22 @@
 import Hero from "./Hero";
-import { Link } from 'react-router-dom';
-
-const MovieCard = ({ movie}) => {
-    const posterUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-    const detailUrl = `/movies/${movie.id}`
-    return (
-        <div className="col-lg-3 col-me-3 col-2 my-4">
-            <div className="card">
-                <div>
-                    {!posterUrl.includes("null") && <img src={posterUrl} className="card-img-top" alt={movie.original_title} />}
-                </div>
-                
-                <div className="card-body">
-                    <h5 className="card-title">{movie.original_title}</h5>
-                    <Link to={detailUrl} className="btn btn-primary">Show details</Link>
-                </div>
-            </div>
-        </div>
-    )
-}
-
+import MovieCard from "./MovieCard";
 
 const SearchView = ({ keyword, searchResults }) => {
     const title = `You are searching for ${keyword}`
-    const resultsHtml = searchResults.map((obj, i) => {
-      return <MovieCard movie={obj} key={i} />
-    })
+    var resultsHtml
+    if(searchResults.length === 0){
+        resultsHtml = <h1 className="my-5">No movie found</h1> 
+    } else {
+        resultsHtml = searchResults.map((obj, i) => {
+            return <MovieCard movie={obj} key={i} />
+          })
+    }
+
  
     return (
         <div>
             <Hero text={title} />
-            {resultsHtml &&
+            { resultsHtml &&
                 <div className="container">
                     <div className="row">
                         {resultsHtml}

@@ -8,10 +8,7 @@ const AboutView = () => {
         <div className="row">
           <div className="col-lg-8 offset-lg-2 my-5">
             <p className="lead">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Blandit aliquam etiam erat velit scelerisque in dictum non
-              consectetur.
+              Michael Rutherford, learning Reactjs.
             </p>
           </div>
         </div>
